@@ -27,7 +27,7 @@ func BenchmarkAPI(b *testing.B) {
 
 	b.Run("localScan - /api/numbers/:number/scan/local", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			res, err := performRequest(srv, http.MethodGet, "/api/numbers/3312345253/scan/local")
+			res, err := performRequest(srv, http.MethodGet, "/api/numbers/7577085886/scan/local")
 			assert.Equal(b, nil, err)
 			assert.Equal(b, res.Result().StatusCode, 200)
 		}
@@ -67,7 +67,7 @@ func TestApi(t *testing.T) {
 
 		t.Run("validate - /api/numbers/:number/validate", func(t *testing.T) {
 			t.Run("valid number", func(t *testing.T) {
-				res, err := performRequest(srv, http.MethodGet, "/api/numbers/3312345253/validate")
+				res, err := performRequest(srv, http.MethodGet, "/api/numbers/7577085886/validate")
 
 				body, _ := ioutil.ReadAll(res.Body)
 
@@ -99,13 +99,13 @@ func TestApi(t *testing.T) {
 
 		t.Run("localScan - /api/numbers/:number/scan/local", func(t *testing.T) {
 			t.Run("valid number", func(t *testing.T) {
-				res, err := performRequest(srv, http.MethodGet, "/api/numbers/3312345253/scan/local")
+				res, err := performRequest(srv, http.MethodGet, "/api/numbers/7577085886/scan/local")
 
 				body, _ := ioutil.ReadAll(res.Body)
 
 				assert.Equal(t, err, nil)
 				assert.Equal(t, res.Result().StatusCode, 200)
-				assert.Equal(t, string(body), `{"success":true,"result":{"raw_local":"12345253","local":"12345253","e164":"+3312345253","international":"3312345253","country_code":33,"country":"FR"}}`)
+				assert.Equal(t, string(body), `{"success":true,"result":{"raw_local":"12345253","local":"12345253","e164":"+17577085886","international":"7577085886","country_code":+1,"country":"US"}}`)
 			})
 
 			t.Run("invalid number", func(t *testing.T) {
@@ -130,14 +130,14 @@ func TestApi(t *testing.T) {
 
 				expectedResult := suppliers.NumverifyValidateResponse{
 					Valid:               true,
-					Number:              "79516566591",
-					LocalFormat:         "9516566591",
-					InternationalFormat: "+79516566591",
-					CountryPrefix:       "+7",
-					CountryCode:         "RU",
-					CountryName:         "Russian Federation",
-					Location:            "Saint Petersburg and Leningrad Oblast",
-					Carrier:             "OJSC St. Petersburg Telecom (OJSC Tele2-Saint-Petersburg)",
+					Number:              "17577985886,
+					LocalFormat:         "7577085886",
+					InternationalFormat: "+17577085886",
+					CountryPrefix:       "+1",
+					CountryCode:         "US",
+					CountryName:         "United States of America",
+					Location:            "",
+					Carrier:             "",
 					LineType:            "mobile",
 				}
 
